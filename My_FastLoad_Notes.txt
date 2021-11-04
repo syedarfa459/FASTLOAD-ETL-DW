@@ -1,0 +1,33 @@
+#01
+Fastload utility helps you to quickly load the data
+in empty tables of your teradata database.
+
+#02
+For this process, you'll need two files
+	1. The file from which you'll extract the data also known as 
+	   the datafile (this may be your txt file or a csv file, etc.)
+	2. The fld file which will contain the actual script, this script
+	   will help your system load complete data to the database.
+
+#03
+Important concepts to remember about fld script
+	1. LOGON 174.11.19.90/Your_ACC_NAME,Your_ACC_PASSWORD;
+	   the ip_address(of organization's data)/
+	   the account_name/account_password.
+	2. set record vartext "|";
+	   this is a very important line, your datafile(txt or csv)
+	   contains the attributes and these attributes posses thousands
+	   of lines of data, this line helps the system to recognize attribute
+	   based on this delimiter.
+	   Example:
+	   syed_arfa|22|UET Taxila --> AttrVal_1(syed_arfa)
+	   AttrVal_2(22)  AttrVal_3(UET Taxila) Note that these 3 values
+	   are recognized by separting them with "|" delimiter.
+	3. Three Necessary tables are created 
+           1.The actual table, in our case, its name is NewCustomer_By_Arfa
+	   2.The Error table #01 which will record errors related
+	     to data types, in our case its name is NewCustomer_By_Arfa_UCV(you can have any name of these files)
+	   3.The Error table #02 which records errors related to duplicate records
+	     in our case,its name is, NewCustomer_By_Arfa_TV
+	4. file="D:\PTCL\FASTLOAD\CustomerRecByArfa.txt";
+		this is the path to your datafile.

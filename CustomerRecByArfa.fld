@@ -1,0 +1,41 @@
+
+LOGON Your_Ip/Your_ACC_NAME,Your_ACC_PASSWORD;
+
+set record vartext "|"; 
+drop TABLE PDP_TMP.NewCustomer_By_Arfa;
+drop table PDP_TMP.NewCustomer_By_Arfa_UCV;
+drop Table PDP_TMP.NewCustomer_By_Arfa_TV;
+
+
+CREATE MULTISET TABLE pdp_tmp.NewCustomer_By_Arfa(
+	  customer_name varchar(30),
+	  broadband_quantity varchar(5),
+	  iptv_quantity varchar(5),
+	  Charji_quantity varchar(5),
+	  Year_Month varchar(7)
+);
+
+define
+	  customer_name (varchar(30)),
+	  broadband_quantity (varchar(5)),
+	  iptv_quantity (varchar(5)),
+	  Charji_quantity (varchar(5)),
+	  Year_Month (varchar(7))
+
+file="D:\PTCL\FASTLOAD\CustomerRecByArfa.txt";
+
+begin loading PDP_TMP.NewCustomer_By_Arfa
+errorfiles PDP_TMP.NewCustomer_By_Arfa_UCV, PDP_TMP.NewCustomer_By_Arfa_TV;
+
+insert into PDP_TMP.NewCustomer_By_Arfa(
+  :customer_name,
+  :broadband_quantity,
+  :iptv_quantity,
+  :Charji_quantity,
+  :Year_Month
+
+);
+
+END LOADING;
+
+LOGOFF;
